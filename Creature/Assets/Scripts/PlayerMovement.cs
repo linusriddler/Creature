@@ -13,8 +13,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
-        
-        Vector3 moveDirection = new Vector3(moveHorizontal, 0, 0);
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 moveDirection =
+            transform.right * moveHorizontal +
+            transform.forward * moveVertical;
 
         transform.position += moveDirection * PlayerMoveSpeed * Time.deltaTime;
     }
