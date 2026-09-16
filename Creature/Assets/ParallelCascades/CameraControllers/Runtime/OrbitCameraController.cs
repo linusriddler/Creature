@@ -110,12 +110,11 @@ namespace ParallelCascades.CameraControllers.Runtime
             
             CameraInputs cameraInputs = GetCameraInputs();
 
-            ApplyResetIfRequested(cameraInputs.ResetRotation);
+         
             
-            if (cameraInputs.MouseDrag)
-            {
+
                 ApplyOrbitRotation(cameraInputs.MouseDelta);
-            }
+
             
             ApplyCursorState(cameraInputs.MouseDrag);
 
