@@ -223,6 +223,7 @@ MonoBehaviour:
   jumpStrength: 5
   rb: {fileID: 43239424}
   isGrounded: 0
+  anim: {fileID: 43239427}
 --- !u!54 &43239424
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -273,6 +274,11 @@ CapsuleCollider:
   m_Height: 1.7287557
   m_Direction: 1
   m_Center: {x: 0, y: 0.8952507, z: 0}
+--- !u!95 &43239427 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
+  m_PrefabInstance: {fileID: 43239417}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &95575649
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +438,7 @@ MonoBehaviour:
   jumpStrength: 0
   rb: {fileID: 0}
   isGrounded: 0
+  anim: {fileID: 0}
 --- !u!114 &95575656
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class PlayerMovement : MonoBehaviour
 {
     public float PlayerMoveSpeed = 5f;
@@ -7,11 +6,41 @@ public class PlayerMovement : MonoBehaviour
     public float jumpStrength = 5f;
     public Rigidbody rb;
     public bool isGrounded = false;
+    public Animator anim;
+    private bool IsWalking;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
     void Update()
+    {
+        IsWalkingCheck();
+        Walking();
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+            {
+                rb.AddForce (Vector3.up * jumpStrength, ForceMode.Impulse);
+                isGrounded = false;
+            }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            anim.SetBool("isGrounded", true);
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+            anim.SetBool("isGrounded", false);
+        }
+    }
+    private void Walking()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -32,22 +61,53 @@ public class PlayerMovement : MonoBehaviour
         transform.position += moveDirection * PlayerMoveSpeed * Time.deltaTime;
         if (moveDirection != Vector3.zero)
         {
-           Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.RotateTowards (transform.rotation, targetRotation, 500f *  Time.deltaTime);
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500f * Time.deltaTime);
+            anim.SetBool("isWalking", true);
         }
-        
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
-            {
-                rb.AddForce (Vector3.up * jumpStrength, ForceMode.Impulse);
-                isGrounded = false;
-            }
+   
     }
-    private void OnCollisionEnter(Collision collision)
+    private void IsWalkingCheck()
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            isGrounded = true;
+            IsWalking = true;
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            IsWalking = true;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            IsWalking = true;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            IsWalking = true;
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            IsWalking = false;
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            IsWalking = false;
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            IsWalking = false;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            IsWalking = false;
+        }
+        if (IsWalking == true)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        if (IsWalking == false)
+        {
+            anim.SetBool("isWalking", false);
         }
     }
 }
