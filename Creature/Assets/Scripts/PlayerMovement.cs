@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public float PlayerMoveSpeed = 5f;
@@ -15,14 +16,20 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        IsWalkingCheck();
-        Walking();
+        if (SceneManager.GetActiveScene().name == "Battle")
+        {
+        }
+        else
+        {
+            IsWalkingCheck();
+            Walking();
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
             {
-                rb.AddForce (Vector3.up * jumpStrength, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
                 isGrounded = false;
             }
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
