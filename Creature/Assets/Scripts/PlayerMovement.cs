@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement: MonoBehaviour
 {
     public float PlayerMoveSpeed = 5f;
     public Transform cameraTransform;

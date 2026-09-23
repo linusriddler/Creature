@@ -880,6 +880,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5170551924155868309, guid: 6460c0630a8ee2745abc5ce44220b8f0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a39afc1d664eef5499467acf0785313d, type: 2}
     - target: {fileID: 7208233123617431569, guid: 6460c0630a8ee2745abc5ce44220b8f0, type: 3}
       propertyPath: m_Name
       value: Testing Floor
