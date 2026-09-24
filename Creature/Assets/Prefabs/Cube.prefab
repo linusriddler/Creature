@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5089020977771568791}
   - component: {fileID: 349159395192196113}
   - component: {fileID: 63285400310764113}
+  - component: {fileID: 3532501763675593092}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -108,7 +109,19 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3532501763675593092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759058706447252804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabda674176d5b64faf8f33a094c030b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreatureSpawn

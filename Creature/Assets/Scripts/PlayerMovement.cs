@@ -88,7 +88,7 @@ public class PlayerMovement: MonoBehaviour
         {
             IsWalking = true;
         }
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             IsWalking = true;
         }
