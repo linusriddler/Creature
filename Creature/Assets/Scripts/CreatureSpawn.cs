@@ -16,7 +16,7 @@ public class CreatureSpawn : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("SpawnZone"))
         {
             SceneManager.LoadScene("Battle");
         }

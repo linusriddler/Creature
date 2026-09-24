@@ -403,7 +403,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207983689}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: cababcf310e594a4d862c564c4876b34, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -581,7 +581,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -697,7 +697,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293899226}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: cababcf310e594a4d862c564c4876b34, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -801,6 +801,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Camera
   mouseSensitivity: 200
+  cameraTransform: {fileID: 502004292}
+  target: {fileID: 1866444236}
+--- !u!114 &1453385378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453385366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabda674176d5b64faf8f33a094c030b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreatureSpawn
 --- !u!4 &1866444236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3847734513065146202, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
@@ -875,6 +889,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100568882812118109, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: m_Radius
+      value: 0.25074542
+      objectReference: {fileID: 0}
+    - target: {fileID: 100568882812118109, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: m_Center.x
+      value: -0.030975826
+      objectReference: {fileID: 0}
+    - target: {fileID: 100568882812118109, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: m_Center.z
+      value: -0.010090828
+      objectReference: {fileID: 0}
     - target: {fileID: 2850653277691485165, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -930,6 +956,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3225807282447761751, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1453385372}
+    - targetCorrespondingSourceObject: {fileID: 3225807282447761751, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1453385378}
   m_SourcePrefab: {fileID: 100100000, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

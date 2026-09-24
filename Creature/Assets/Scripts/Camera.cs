@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class Camera : MonoBehaviour
 {
     public float mouseSensitivity = 200f;
-    private Transform cameraTransform;
+    public Transform cameraTransform;
     private float mouseX;
     private float mouseY;
-    private Transform target;
+    public Transform target;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,9 +29,6 @@ public class Camera : MonoBehaviour
             Cursor.visible = false;
             mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
             mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-
-
-
         }
     }
 }
