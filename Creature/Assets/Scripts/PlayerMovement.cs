@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class PlayerMovement: MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float PlayerMoveSpeed = 5f;
     public Transform cameraTransform;
+
     public float jumpStrength = 5f;
     public Rigidbody rb;
+
     public bool isGrounded = false;
+
     public Animator anim;
-    private bool IsWalking;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,14 +25,11 @@ public class PlayerMovement: MonoBehaviour
         }
         else
         {
-            IsWalkingCheck();
-            Walking();
 
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
-            {
-                rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
-                isGrounded = false;
-            }
+            Walking();
+            Jumping();
+
+
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -49,72 +50,50 @@ public class PlayerMovement: MonoBehaviour
     }
     private void Walking()
     {
+        //Get WASD Input 
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        //Get the camera's forward and right directions
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
 
+        //Ignore Camera's Y Rotation
         forward.y = 0f;
         right.y = 0f;
 
         forward.Normalize();
         right.Normalize();
 
+        // Create movement direction based on camera orientation and input
         Vector3 moveDirection =
             right * moveHorizontal +
             forward * moveVertical;
 
+        //Move the player
         transform.position += moveDirection * PlayerMoveSpeed * Time.deltaTime;
-        if (moveDirection != Vector3.zero)
+
+        //Check if the player is walking
+        bool isWalking = moveDirection.magnitude > 0.1f;
+
+        //Tell the animator if the player is walking or not
+        anim.SetBool("isWalking", isWalking);
+
+        //Rotate the player to face the direction of movement
+        if (isWalking)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500f * Time.deltaTime);
-            anim.SetBool("isWalking", true);
         }
-   
     }
-    private void IsWalkingCheck()
+
+    private void Jumping()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+               if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            IsWalking = true;
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            IsWalking = true;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            IsWalking = true;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            IsWalking = true;
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            IsWalking = false;
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            IsWalking = false;
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            IsWalking = false;
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            IsWalking = false;
-        }
-        if (IsWalking == true)
-        {
-            anim.SetBool("isWalking", true);
-        }
-        if (IsWalking == false)
-        {
-            anim.SetBool("isWalking", false);
+            rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+            isGrounded = false;
+            anim.SetBool("isGrounded", false);
         }
     }
 }

@@ -920,6 +920,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5330412585761100984, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: PlayerMoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330412585761100984, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 502004292}
