@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class CreatureSpawn : MonoBehaviour
 {
+    public bool MonsterSpawnable;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,9 +17,18 @@ public class CreatureSpawn : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("SpawnZone"))
-        {
-            SceneManager.LoadScene("Battle");
-        }
+            if (collision.gameObject.CompareTag("SpawnZone"))
+            {
+            if (MonsterSpawnable == true)
+            {
+                SceneManager.LoadScene("Battle");
+                MonsterSpawnable = false;
+            }
+            else { }
+            }
+            if (collision.gameObject.CompareTag("CreatureRespawn"))
+            {
+                MonsterSpawnable = true;
+            }
     }
 }
