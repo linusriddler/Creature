@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Hierarchy
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -686,7 +686,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Materials and Images/Materials
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -696,22 +696,23 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 50
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Materials and Images/Materials
   m_LastFoldersGridSize: 50
   m_LastProjectPath: C:\Users\02LINUS.RIDDLE\Linus Riddle\Unity\Repositories\Creature\Creature
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 92}
+    scrollPos: {x: 0, y: 79}
     m_SelectedIDs:
-    - m_Data: 48988
+    - m_Data: 50788
     m_LastClickedID:
-      m_Data: 48988
+      m_Data: 50788
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 48670
-    - m_Data: 48980
+    - m_Data: 48686
+    - m_Data: 48994
+    - m_Data: 48996
     - m_Data: 1000000000
     - m_Data: 2147483647
     m_RenameOverlay:
@@ -746,7 +747,7 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 48670
+    - m_Data: 48686
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -773,9 +774,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs:
-    - m_Data: 47736
-    m_LastClickedInstanceID: 47736
+    m_SelectedInstanceIDs: []
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_Data: 47686
@@ -907,14 +907,13 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs:
-      - m_Data: 47736
+      m_SelectedIDs: []
       m_LastClickedID:
-        m_Data: 47736
+        m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -1498
+      - m_Data: -9472
       - m_Data: -1292
-      - m_Data: 47758
+      - m_Data: 50750
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1381,9 +1380,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -15.31036, y: -115.04166, z: 156.19695}
+    m_Target: {x: -153.30382, y: -43.31653, z: 164.704}
     speed: 2
-    m_Value: {x: -15.31036, y: -115.04166, z: 156.19695}
+    m_Value: {x: -153.30382, y: -43.31653, z: 164.704}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1429,13 +1428,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.30419004, y: -0.05524607, z: 0.018419687, w: 0.95097905}
+    m_Target: {x: 0.0938506, y: -0.42161128, z: 0.044710934, w: 0.9009667}
     speed: 2
-    m_Value: {x: 0.30414683, y: -0.05523822, z: 0.01841707, w: 0.95084393}
+    m_Value: {x: 0.09518733, y: -0.42147964, z: 0.045336723, w: 0.90068805}
   m_Size:
-    m_Target: 108.51629
+    m_Target: 118.262535
     speed: 2
-    m_Value: 108.51629
+    m_Value: 118.262535
   m_Ortho:
     m_Target: 0
     speed: 2
