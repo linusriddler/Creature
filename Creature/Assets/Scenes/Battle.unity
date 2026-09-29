@@ -1342,7 +1342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3225807282447761751, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Battle Player
       objectReference: {fileID: 0}
     - target: {fileID: 7190318716554794719, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
