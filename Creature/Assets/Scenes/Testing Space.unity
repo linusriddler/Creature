@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 1235110962}
   - component: {fileID: 1235110966}
   m_Layer: 0
-  m_Name: Grass
+  m_Name: CreatureSpawnZone
   m_TagString: SpawnZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -830,7 +830,7 @@ GameObject:
   - component: {fileID: 1666006060}
   - component: {fileID: 1666006059}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Respawn Zone
   m_TagString: CreatureRespawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
