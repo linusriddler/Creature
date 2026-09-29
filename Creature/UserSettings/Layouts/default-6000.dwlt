@@ -705,15 +705,12 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
     m_SelectedIDs:
-    - m_Data: 49044
+    - m_Data: 49030
     m_LastClickedID:
-      m_Data: 49044
+      m_Data: 49030
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 49044
-    - m_Data: 49160
-    - m_Data: 49174
-    - m_Data: 50912
+    - m_Data: 49030
     - m_Data: 1000000000
     - m_Data: 2147483647
     m_RenameOverlay:
@@ -748,7 +745,7 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 49044
+    - m_Data: 49030
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -777,7 +774,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: []
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs:
     - m_Data: 47686
     - m_Data: 47706
@@ -912,10 +909,7 @@ MonoBehaviour:
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -5122
-      - m_Data: -2160
-      - m_Data: -1292
-      - m_Data: 47746
+      - m_Data: -1318
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1382,9 +1376,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 1.3384304, y: -0.43886566, z: 3.0812933}
+    m_Target: {x: 4.2651634, y: 2.4066641, z: -0.68245935}
     speed: 2
-    m_Value: {x: 1.3384304, y: -0.43886566, z: 3.0812933}
+    m_Value: {x: 4.2651634, y: 2.4066641, z: -0.68245935}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1430,9 +1424,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.19330998, y: 0.6059558, z: -0.15389024, w: 0.75636977}
+    m_Target: {x: 0.1594373, y: -0.24706201, z: 0.042097133, w: 0.9550419}
     speed: 2
-    m_Value: {x: 0.19327822, y: 0.60585624, z: -0.15386496, w: 0.75624555}
+    m_Value: {x: 0.159536, y: -0.24415465, z: 0.04161162, w: 0.9556177}
   m_Size:
     m_Target: 9.289469
     speed: 2
