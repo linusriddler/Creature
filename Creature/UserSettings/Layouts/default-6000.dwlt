@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 45
+  controlID: 100
   draggingID: 0
 --- !u!114 &3
 MonoBehaviour:
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 112}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 46
+  controlID: 57
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -686,7 +686,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Materials and Images/Flat Texture/Materials
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 50
   m_LastFolders:
-  - Assets
+  - Assets/Materials and Images/Flat Texture/Materials
   m_LastFoldersGridSize: 50
   m_LastProjectPath: C:\Users\02LINUS.RIDDLE\Linus Riddle\Unity\Repositories\Creature\Creature
   m_LockTracker:
@@ -705,12 +705,15 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
     m_SelectedIDs:
-    - m_Data: 49030
+    - m_Data: 49654
     m_LastClickedID:
-      m_Data: 49030
+      m_Data: 49654
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 49030
+    - m_Data: 49040
+    - m_Data: 49152
+    - m_Data: 49156
+    - m_Data: 49226
     - m_Data: 1000000000
     - m_Data: 2147483647
     m_RenameOverlay:
@@ -745,7 +748,7 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 49030
+    - m_Data: 49040
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -772,9 +775,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: []
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs:
+    - m_Data: 49626
+    m_LastClickedInstanceID: 49626
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_Data: 47686
     - m_Data: 47706
@@ -905,11 +909,15 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: []
+      m_SelectedIDs:
+      - m_Data: 49626
       m_LastClickedID:
-        m_Data: 0
+        m_Data: 49626
       m_ExpandedIDs:
-      - m_Data: -1318
+      - m_Data: -7548
+      - m_Data: -6222
+      - m_Data: -1304
+      - m_Data: 49626
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1376,9 +1384,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 4.2651634, y: 2.4066641, z: -0.68245935}
+    m_Target: {x: 262.49057, y: 84.67996, z: -436.57184}
     speed: 2
-    m_Value: {x: 4.2651634, y: 2.4066641, z: -0.68245935}
+    m_Value: {x: 262.49057, y: 84.67996, z: -436.57184}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1416,21 +1424,21 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 0
+        m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0}
+      m_Size: {x: 1, y: 1}
     m_ShowGrid: 1
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.1594373, y: -0.24706201, z: 0.042097133, w: 0.9550419}
+    m_Target: {x: 0.06358823, y: 0.0377269, z: -0.0014163502, w: 0.9974487}
     speed: 2
-    m_Value: {x: 0.159536, y: -0.24415465, z: 0.04161162, w: 0.9556177}
+    m_Value: {x: 0.06357844, y: 0.036223937, z: -0.0013207202, w: 0.9973183}
   m_Size:
-    m_Target: 9.289469
+    m_Target: 3.5452383
     speed: 2
-    m_Value: 9.289469
+    m_Value: 3.5452383
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1448,7 +1456,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_LastSceneViewRotation: {x: 0.27981728, y: 0.27492073, z: -0.08301354, w: 0.91628915}
   m_LastSceneViewOrtho: 0
   m_Viewpoint:
     m_SceneView: {fileID: 17}
@@ -1535,7 +1543,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
