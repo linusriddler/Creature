@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c723e5d1876b914696f0756a9579c68, type: 3}
+  m_Name: Zanthor
+  m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
+  speciesName: Zanthor
+  baseHealth: 100
+  baseAttack: 50
+  baseDefense: 50
+  baseSpeed: 50
+  learnableMoves:
+  - {fileID: 11400000, guid: 3ca1a8ce517e333458e1048004a8b8b5, type: 2}
+  - {fileID: 11400000, guid: 3fbea638f8c17bc4a9592027f6fdf804, type: 2}
