@@ -13,6 +13,7 @@ public class ActiveCreature : MonoBehaviour
     public int currentHp;
     public int attack;
     public int speed;
+    public int defense;
 
     [Header("Current Moves")]
     // The specific moves this exact creature can use right now
@@ -28,6 +29,7 @@ public class ActiveCreature : MonoBehaviour
         maxHP = baseData.baseHealth + (level * 5);
         attack = baseData.baseAttack + (level * 2);
         speed = baseData.baseSpeed + (level * 2);
+        defense = baseData.baseDefense + (level * 2);
 
         // Start combat at full health
         currentHp = maxHP;
@@ -60,7 +62,7 @@ public class ActiveCreature : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Initialize(baseData, currentLevel);
     }
 
     // Update is called once per frame
