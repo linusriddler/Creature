@@ -70,6 +70,50 @@ public class BattleManager : MonoBehaviour
 
         // Deal the damage to the defender
         defender.TakeDamage(damage);
+
+        // Check if the defender has fainted
+        if(defender.currentHp <= 0)
+        {
+            EndBattle(attacker == playerCreature); // If attacker was player, player won!
+        }
+        else
+        {
+            // If the battle continues, pass the turn to the other combatant
+            if (attacker == playerCreature)
+            {
+                Invoke(nameof(EnemyTurn), 1.5f); // Wait so text is readable
+            }
+            else
+            {
+                Invoke(nameof(PlayerTurn), 1.5f); // Wait so text is readable
+            }
+            
+        }
+    }
+    
+    void EnemyTurn()
+    {
+        currentState = BattleState.ENEMYTURN;
+        Debug.Log($"{enemyCreature.baseData.speciesName} is deciding what to do...");
+
+        // AI Logic: For now, just use the first move
+        MoveData enemyMove = enemyCreature.activeMoves[0];
+
+        ExecuteMove(enemyCreature, playerCreature, enemyMove);
+    }
+
+    void EndBattle(bool playerWon)
+    {
+        if(playerWon)
+        {
+            currentState = BattleState.WON;
+            Debug.Log("Player won the battle!");
+        }
+        else
+        {
+            currentState = BattleState.LOST;
+            Debug.Log("Player lost the battle!");
+        }
     }
 }
 

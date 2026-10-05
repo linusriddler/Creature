@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c723e5d1876b914696f0756a9579c68, type: 3}
-  m_Name: Zanthor
+  m_Name: Banthor
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
-  speciesName: Zanthor
-  baseHealth: 200
+  speciesName: Banthor
+  baseHealth: 150
   baseAttack: 50
   baseDefense: 50
   baseSpeed: 50
   learnableMoves:
-  - {fileID: 11400000, guid: 3ca1a8ce517e333458e1048004a8b8b5, type: 2}
   - {fileID: 11400000, guid: 3fbea638f8c17bc4a9592027f6fdf804, type: 2}
+  - {fileID: 11400000, guid: 3ca1a8ce517e333458e1048004a8b8b5, type: 2}
