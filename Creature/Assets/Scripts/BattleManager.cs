@@ -17,7 +17,7 @@ public class BattleManager : MonoBehaviour
 
     [Header("Setup Templates")]
     public BaseCreatureData playerTemplate;
-    public BaseCreatureData enemyTemplate;
+    
 
      void Start()
     {
@@ -31,7 +31,7 @@ public class BattleManager : MonoBehaviour
 
         //Initialize both creatures at level 5 with templates
         playerCreature.Initialize(playerTemplate, 5);
-        enemyCreature.Initialize(enemyTemplate, 5);
+       
 
         Debug.Log($"A wild {enemyCreature.baseData.speciesName} appeared !");
         Debug.Log($"Player sent out {playerCreature.baseData.speciesName}!");
