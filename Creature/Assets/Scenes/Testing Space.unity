@@ -442,7 +442,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: becd594a9c92daf4ab5cfa0038f1e400, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -737,7 +737,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 819dcdf1546fc374d8da7a68b41f6ab8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -934,6 +934,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3847734513065146202, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
   m_PrefabInstance: {fileID: 7655524579437423690}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4386003376886156579
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1276704580415778982, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_Name
+      value: Geor
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.1084
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.738
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1944451823733287452, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
 --- !u!1001 &6847033012728396509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1063,6 +1120,18 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 502004292}
+    - target: {fileID: 7190318716554794719, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a39afc1d664eef5499467acf0785313d, type: 2}
+    - target: {fileID: 7190318716554794719, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a39afc1d664eef5499467acf0785313d, type: 2}
+    - target: {fileID: 7190318716554794719, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a39afc1d664eef5499467acf0785313d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1088,3 +1157,4 @@ SceneRoots:
   - {fileID: 1210643127}
   - {fileID: 1235110965}
   - {fileID: 1666006062}
+  - {fileID: 4386003376886156579}
