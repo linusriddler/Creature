@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Froo
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
   speciesName: Froo
+  creaturePrefab: {fileID: 0}
   baseHealth: 1000
   baseAttack: 1
   baseDefense: 1000
   baseSpeed: 50
-  learnableMoves: []
+  learnableMoves:
+  - {fileID: 11400000, guid: e425a85247873fa4d8e06760b30659d4, type: 2}

@@ -19,11 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-<<<<<<< HEAD
   m_Title: Project
-=======
-  m_Title: Game
->>>>>>> BetaTestDev
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -73,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 365
     height: 933
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -704,11 +700,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-<<<<<<< HEAD
     - Assets/Scripts
-=======
-    - Assets/Creature Rigs
->>>>>>> BetaTestDev
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -718,11 +710,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 50
   m_LastFolders:
-<<<<<<< HEAD
   - Assets/Scripts
-=======
-  - Assets/Creature Rigs
->>>>>>> BetaTestDev
   m_LastFoldersGridSize: 50
   m_LastProjectPath: C:\Users\02MADDOX.GREENSPOON\Maddox Greenspoon\Repositories\Untitled
     New Game\UntitledNewGame\Creature\Creature
@@ -732,23 +720,13 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-<<<<<<< HEAD
-    - m_Data: 49302
+    - m_Data: 49550
     m_LastClickedID:
-      m_Data: 49302
+      m_Data: 49550
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 49184
-    - m_Data: 49300
-    - m_Data: 49302
-=======
-    - m_Data: 49080
-    m_LastClickedID:
-      m_Data: 49080
-    m_ExpandedIDs:
-    - m_Data: 0
-    - m_Data: 48768
->>>>>>> BetaTestDev
+    - m_Data: 49466
+    - m_Data: 49550
     - m_Data: 1000000000
     - m_Data: 2147483647
     m_RenameOverlay:
@@ -783,11 +761,7 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-<<<<<<< HEAD
-    - m_Data: 49184
-=======
-    - m_Data: 48768
->>>>>>> BetaTestDev
+    - m_Data: 49466
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -815,15 +789,9 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-<<<<<<< HEAD
-    - m_Data: 55366
-    m_LastClickedInstanceID: 55366
-    m_HadKeyboardFocusLastEvent: 0
-=======
-    - m_Data: 47774
-    m_LastClickedInstanceID: 47774
+    - m_Data: 37098
+    m_LastClickedInstanceID: 37098
     m_HadKeyboardFocusLastEvent: 1
->>>>>>> BetaTestDev
     m_ExpandedInstanceIDs:
     - m_Data: 47686
     - m_Data: 47706
@@ -833,8 +801,6 @@ MonoBehaviour:
     - m_Data: 50338
     - m_Data: 55494
     - m_Data: 48558
-    - m_Data: 46546
-    - m_Data: 47806
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -957,22 +923,13 @@ MonoBehaviour:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs:
-<<<<<<< HEAD
-      - m_Data: 55366
-=======
-      - m_Data: 47774
->>>>>>> BetaTestDev
+      - m_Data: 37098
       m_LastClickedID:
-        m_Data: 47774
+        m_Data: 0
       m_ExpandedIDs:
-<<<<<<< HEAD
-      - m_Data: -9440
-      - m_Data: -8080
-      - m_Data: -6504
-      - m_Data: -1294
-=======
->>>>>>> BetaTestDev
-      - m_Data: -1292
+      - m_Data: -5236
+      - m_Data: -4278
+      - m_Data: -1762
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1439,15 +1396,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-<<<<<<< HEAD
-    m_Target: {x: -3.705387, y: 3.33605, z: 0.07574451}
+    m_Target: {x: 12.571922, y: -4.485607, z: -4.8516808}
     speed: 2
-    m_Value: {x: -3.705387, y: 3.33605, z: 0.07574451}
-=======
-    m_Target: {x: 1.2771649, y: 4.796316, z: 9.464589}
-    speed: 2
-    m_Value: {x: 1.2771649, y: 4.796316, z: 9.464589}
->>>>>>> BetaTestDev
+    m_Value: {x: 12.571922, y: -4.485607, z: -4.8516808}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1493,30 +1444,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-<<<<<<< HEAD
-    m_Target: {x: 0.28676307, y: 0.3712316, z: -0.12178018, w: 0.8747562}
+    m_Target: {x: 0.12725775, y: 0.82411605, z: -0.20456614, w: 0.5126522}
     speed: 2
-    m_Value: {x: 0.28675237, y: 0.37121773, z: -0.121775635, w: 0.87472355}
+    m_Value: {x: 0.1272564, y: 0.8241073, z: -0.20456396, w: 0.5126468}
   m_Size:
-    m_Target: 0.8656006
+    m_Target: 10
     speed: 2
-    m_Value: 0.8656006
-=======
-    m_Target: {x: 0.12351195, y: 0.26531413, z: -0.032904748, w: 0.95594764}
-    speed: 2
-    m_Value: {x: 0.12347705, y: 0.26523915, z: -0.03289545, w: 0.9556775}
-  m_Size:
-    m_Target: 1.4862506
-    speed: 2
-    m_Value: 1.4862506
->>>>>>> BetaTestDev
+    m_Value: 10
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1.0005
-    m_SpeedNormalized: 0.49999997
+    m_Speed: 0.70065
+    m_SpeedNormalized: 0.35
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1

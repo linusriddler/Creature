@@ -17,6 +17,9 @@ public class BattleManager : MonoBehaviour
 
     [Header("Setup Templates")]
     public BaseCreatureData playerTemplate;
+
+    [Header("Managers")]
+    public SpawnManager spawnManager;
     
 
      void Start()
@@ -31,7 +34,9 @@ public class BattleManager : MonoBehaviour
 
         //Initialize both creatures at level 5 with templates
         playerCreature.Initialize(playerTemplate, 5);
-       
+
+
+        enemyCreature = spawnManager.GenerateRandomEncounter(3, 6); // Tells spawn manager to generate a random enemy between level 3 and 6
 
         Debug.Log($"A wild {enemyCreature.baseData.speciesName} appeared !");
         Debug.Log($"Player sent out {playerCreature.baseData.speciesName}!");

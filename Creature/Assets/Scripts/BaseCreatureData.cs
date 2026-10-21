@@ -8,6 +8,10 @@ public class BaseCreatureData : ScriptableObject
     [Header("Identity")]
     public string speciesName;
 
+    [Header("Visuals")]
+    // 3D model goes here
+    public GameObject creaturePrefab;
+
     [Header("Base Stats")]
     public int baseHealth;
     public int baseAttack;

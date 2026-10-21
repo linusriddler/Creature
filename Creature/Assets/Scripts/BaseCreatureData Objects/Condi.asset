@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Condi
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
   speciesName: Condi
+  creaturePrefab: {fileID: 0}
   baseHealth: 100
   baseAttack: 25
   baseDefense: 200
   baseSpeed: 10
-  learnableMoves: []
+  learnableMoves:
+  - {fileID: 11400000, guid: beee145de9547f24bb85d904a05e3a79, type: 2}
