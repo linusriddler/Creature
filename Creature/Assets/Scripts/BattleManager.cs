@@ -32,18 +32,22 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("--- BATTLE START ---");
 
-        //Initialize both creatures at level 5 with templates
+        // Initialize stats
         playerCreature.Initialize(playerTemplate, 5);
+        enemyCreature = spawnManager.GenerateRandomEncounter(3, 6);
 
+        // TURN ORDER SPEED CHECK: Compare who is faster!
+        if (playerCreature.speed >= enemyCreature.speed)
+        {
+            Debug.Log($"{playerCreature.baseData.speciesName} is faster!");
+            PlayerTurn();
+        }
+        else
+        {
+            Debug.Log($"The wild {enemyCreature.baseData.speciesName} is faster!");
+            Invoke(nameof(EnemyTurn), 1.0f); // Enemy goes first automatically
+        }
 
-        enemyCreature = spawnManager.GenerateRandomEncounter(3, 6); // Tells spawn manager to generate a random enemy between level 3 and 6
-
-        Debug.Log($"A wild {enemyCreature.baseData.speciesName} appeared !");
-        Debug.Log($"Player sent out {playerCreature.baseData.speciesName}!");
-
-        //Player goes first until we have speed checks
-        PlayerTurn();
-       
     }
 
     void PlayerTurn()

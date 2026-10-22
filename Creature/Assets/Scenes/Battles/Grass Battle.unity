@@ -1867,7 +1867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643487781}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.0071859374, y: 0.3737625, z: -0.004504214, w: 0.9274857}
   m_LocalPosition: {x: 1.901, y: 0.1, z: 2.063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1944,8 +1944,6 @@ MonoBehaviour:
   encounterPool:
   - {fileID: 11400000, guid: d4ee7d9c66cc3084c8747dd58169e863, type: 2}
   - {fileID: 11400000, guid: 9001c892d63841540b84a93436b293ee, type: 2}
-  - {fileID: 11400000, guid: 72e0ee4a0e745e245a8bd74443a20b85, type: 2}
-  - {fileID: 11400000, guid: 90fed259d7a83804bbccda22093a9dcb, type: 2}
   enemySpawnLocation: {fileID: 1643487782}
 --- !u!1 &1731573914
 GameObject:

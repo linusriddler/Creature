@@ -23,27 +23,30 @@ public class SpawnManager : MonoBehaviour
         int randomIndex = Random.Range(0, encounterPool.Count);
         BaseCreatureData chosenTemplate = encounterPool[randomIndex];
 
-        // Create a new blank GameObject named after the species when running
-        GameObject newEnemyObject = new GameObject($"Wild_{chosenTemplate.speciesName}");
-
-        //Spawn it at the designated battle spawn location
-        if (enemySpawnLocation != null)
+        // Create a new GameObject named after the species when running
+        GameObject newEnemyObject;
+        if(chosenTemplate.creaturePrefab != null)
         {
-            newEnemyObject.transform.position = enemySpawnLocation.position;
+            // Instantiates the 3D/2D model directly at the spawn point anchor location
+            newEnemyObject = Instantiate(chosenTemplate.creaturePrefab, enemySpawnLocation.position, enemySpawnLocation.rotation);
+            newEnemyObject.name = $"Wild_{chosenTemplate.speciesName}";
         }
         else
         {
-            Debug.LogWarning("Enemy spawn location is not set!");
+            // Backup fallback if you forgot to drag a prefab asset into the data slot
+            newEnemyObject = new GameObject($"Wild_{chosenTemplate.speciesName} (Missing Prefab)");
+            newEnemyObject.transform.position = enemySpawnLocation.position;
         }
 
-        // Add the ActiveCreature component to the new GameObject
-        ActiveCreature enemyComponent = newEnemyObject.AddComponent<ActiveCreature>();
 
-        //Randomize the level and stat of the creature based on the chosen template
+        // 3. Attach runtime tracking component and initialize stats
+        ActiveCreature enemyComponent = newEnemyObject.AddComponent<ActiveCreature>();
         int randomLevel = Random.Range(minLevel, maxLevel + 1);
         enemyComponent.Initialize(chosenTemplate, randomLevel);
 
+
         Debug.Log($"[SPAWNER] Successfully generated a Level {randomLevel} {chosenTemplate.speciesName}!");
+
         return enemyComponent;
     }
 

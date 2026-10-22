@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Zanthor
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
   speciesName: Zanthor
+  creaturePrefab: {fileID: 8686060887972879327, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
   baseHealth: 200
   baseAttack: 50
   baseDefense: 50
-  baseSpeed: 50
+  baseSpeed: 70
   learnableMoves:
   - {fileID: 11400000, guid: 3ca1a8ce517e333458e1048004a8b8b5, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
   speciesName: Condi
   creaturePrefab: {fileID: 0}
-  baseHealth: 100
+  baseHealth: 200
   baseAttack: 25
   baseDefense: 200
   baseSpeed: 10
