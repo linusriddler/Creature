@@ -20,9 +20,19 @@ public class BattleManager : MonoBehaviour
 
     [Header("Managers")]
     public SpawnManager spawnManager;
-    
 
-     void Start()
+    [Header("Encounter Settings")]
+    // These will now show up as boxes you can type numbers into in Unity!
+    public int minimumEncounterLevel = 3;
+    public int maximumEncounterLevel = 6;
+
+    [Header("Modifiers")]
+    public float criticalHitChance = 0.05f; // 5% chance to crit
+
+
+
+
+    void Start()
     {
         currentState = BattleState.START;
         SetupBattle();
@@ -34,7 +44,7 @@ public class BattleManager : MonoBehaviour
 
         // Initialize stats
         playerCreature.Initialize(playerTemplate, 5);
-        enemyCreature = spawnManager.GenerateRandomEncounter(3, 6);
+        enemyCreature = spawnManager.GenerateRandomEncounter(minimumEncounterLevel, maximumEncounterLevel);
 
         // TURN ORDER SPEED CHECK: Compare who is faster!
         if (playerCreature.speed >= enemyCreature.speed)
@@ -74,14 +84,25 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.BUSY; // Lock inputs so can't spam moves
         Debug.Log($"{attacker.baseData.speciesName} used {move.moveName}!");
 
-        // SIMPLE DAMAGE FORMULA: Attacker, Attack + Move Power
-        int damage = attacker.attack + move.power;
+        // 1. CRITICAL HIT MATH (5% chance to crit)
+        bool isCrit = Random.value <= criticalHitChance;
+        float critMultiplier = isCrit ? 1.5f : 1.0f; // 1.5x damage on crit
 
-        // Deal the damage to the defender
-        defender.TakeDamage(damage);
+        // 2. RANDOM DAMAGE VARIANCE (90% to 100% of full power)
+        float randomVariance = Random.Range(0.90f, 1.00f);
+
+        // 3. CALCULATE COMBINED DAMAGE POOL
+        int baseDamage = attacker.attack + move.power;
+        int finalDamage = Mathf.RoundToInt(baseDamage * randomVariance * critMultiplier);
+
+        if (isCrit) Debug.Log("<color=yellow>A critical hit!</color>");
+
+
+        // Deal damage
+        defender.TakeDamage(finalDamage);
 
         // Check if the defender has fainted
-        if(defender.currentHp <= 0)
+        if (defender.currentHp <= 0)
         {
             EndBattle(attacker == playerCreature); // If attacker was player, player won!
         }
