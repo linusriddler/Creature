@@ -13,7 +13,7 @@ public class ActiveCreature : MonoBehaviour
     public int currentHp;
     public int attack;
     public int speed;
-    public int defense;
+    public float defense;
 
     [Header("Current Moves")]
     // The specific moves this exact creature can use right now
@@ -29,7 +29,9 @@ public class ActiveCreature : MonoBehaviour
         maxHP = baseData.baseHealth + (level * 5);
         attack = baseData.baseAttack + (level * 2);
         speed = baseData.baseSpeed + (level * 2);
-        defense = baseData.baseDefense + (level * 2);
+
+        // Example: 0.20 base defense + (level 5 * 0.01) = 0.25 (25% damage reduction)
+        defense = baseData.baseDefense + (level * 0.01f);
 
         // Start combat at full health
         currentHp = maxHP;

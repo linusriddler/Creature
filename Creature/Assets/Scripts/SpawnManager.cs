@@ -28,7 +28,7 @@ public class SpawnManager : MonoBehaviour
         if(chosenTemplate.creaturePrefab != null)
         {
             // Instantiates the 3D/2D model directly at the spawn point anchor location
-            newEnemyObject = Instantiate(chosenTemplate.creaturePrefab, enemySpawnLocation.position, enemySpawnLocation.rotation);
+            newEnemyObject = Instantiate(chosenTemplate.creaturePrefab, chosenTemplate.spawnPosition, Quaternion.Euler(chosenTemplate.spawnRotation));
             newEnemyObject.name = $"Wild_{chosenTemplate.speciesName}";
         }
         else

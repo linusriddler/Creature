@@ -93,7 +93,8 @@ public class BattleManager : MonoBehaviour
 
         // 3. CALCULATE COMBINED DAMAGE POOL
         int baseDamage = attacker.attack + move.power;
-        int finalDamage = Mathf.RoundToInt(baseDamage * randomVariance * critMultiplier);
+        float reductionMultiplier = 1.0f - defender.defense;
+        int finalDamage = Mathf.RoundToInt(baseDamage * randomVariance * critMultiplier * reductionMultiplier);
 
         if (isCrit) Debug.Log("<color=yellow>A critical hit!</color>");
 

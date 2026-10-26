@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
   speciesName: Geor
   creaturePrefab: {fileID: 1276704580415778982, guid: 65af37b5798dc1a4f981dc726f611849, type: 3}
+  spawnPosition: {x: 1.901, y: 0.1, z: 2.063}
+  spawnRotation: {x: -0.571, y: 43.901, z: -0.787}
   baseHealth: 125
   baseAttack: 70
-  baseDefense: 50
+  baseDefense: 0.3
   baseSpeed: 30
   learnableMoves:
   - {fileID: 11400000, guid: 3fbea638f8c17bc4a9592027f6fdf804, type: 2}

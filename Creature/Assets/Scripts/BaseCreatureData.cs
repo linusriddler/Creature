@@ -12,10 +12,14 @@ public class BaseCreatureData : ScriptableObject
     // 3D model goes here
     public GameObject creaturePrefab;
 
+    [Header("Position & Rotation")]
+    public Vector3 spawnPosition;
+    public Vector3 spawnRotation;
+
     [Header("Base Stats")]
     public int baseHealth;
     public int baseAttack;
-    public int baseDefense;
+    public float baseDefense;
     public int baseSpeed;
 
     [Header("Combat Moves")]
