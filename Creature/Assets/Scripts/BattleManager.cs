@@ -92,9 +92,12 @@ public class BattleManager : MonoBehaviour
         float randomVariance = Random.Range(0.90f, 1.00f);
 
         // 3. CALCULATE COMBINED DAMAGE POOL
-        int baseDamage = attacker.attack + move.power;
-        float reductionMultiplier = 1.0f - defender.defense;
-        int finalDamage = Mathf.RoundToInt(baseDamage * randomVariance * critMultiplier * reductionMultiplier);
+        int baseDamage = attacker.attack * move.power;
+        // Prevent Division by Zero by forcing defense to be at least 1
+        float baseDefense = Mathf.Max(1f, defender.defense);
+
+        // Perform math entirely in float space, round it, and enforce a 1 HP minimum floor
+        int finalDamage = Mathf.Max(1, Mathf.RoundToInt((float)baseDamage * randomVariance * critMultiplier / baseDefense));
 
         if (isCrit) Debug.Log("<color=yellow>A critical hit!</color>");
 

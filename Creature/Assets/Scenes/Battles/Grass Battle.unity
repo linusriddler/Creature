@@ -1914,8 +1914,8 @@ MonoBehaviour:
   enemyCreature: {fileID: 0}
   playerTemplate: {fileID: 11400000, guid: d4ee7d9c66cc3084c8747dd58169e863, type: 2}
   spawnManager: {fileID: 1730116933}
-  minimumEncounterLevel: 50
-  maximumEncounterLevel: 50
+  minimumEncounterLevel: 5
+  maximumEncounterLevel: 5
   criticalHitChance: 0.05
 --- !u!4 &1730116932
 Transform:

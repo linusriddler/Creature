@@ -26,12 +26,12 @@ public class ActiveCreature : MonoBehaviour
         currentLevel = level;
 
         //RPG MATH: Scale Stats based on level
-        maxHP = baseData.baseHealth + (level * 5);
-        attack = baseData.baseAttack + (level * 2);
+        maxHP = baseData.baseHealth + (level * 10) + level;
+        attack = baseData.baseAttack + (level * 3);
         speed = baseData.baseSpeed + (level * 2);
 
-        // Example: 0.20 base defense + (level 5 * 0.01) = 0.25 (25% damage reduction)
-        defense = baseData.baseDefense + (level * 0.01f);
+        // Example: 2 base defense + (level 5 * 2) = 12 (12 points of defense)
+        defense = baseData.baseDefense + (level * 2);
 
         // Start combat at full health
         currentHp = maxHP;

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
   speciesName: Froo
   creaturePrefab: {fileID: 0}
-  baseHealth: 150
-  baseAttack: 50
-  baseDefense: 0
-  baseSpeed: 100
+  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnRotation: {x: 0, y: 0, z: 0}
+  baseHealth: 14
+  baseAttack: 6
+  baseDefense: 5
+  baseSpeed: 20
   learnableMoves:
   - {fileID: 11400000, guid: e425a85247873fa4d8e06760b30659d4, type: 2}

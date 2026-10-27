@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ultimate Death Laser
   m_EditorClassIdentifier: Assembly-CSharp::MoveData
   moveName: Ultimate Death Laser
-  power: 30
+  power: 20
   accuracy: 100
   elementPack: 

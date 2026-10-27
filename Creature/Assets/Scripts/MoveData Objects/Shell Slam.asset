@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Shell Slam
   m_EditorClassIdentifier: Assembly-CSharp::MoveData
   moveName: Shell Slam
-  power: 50
+  power: 30
   accuracy: 100
   elementPack: 
