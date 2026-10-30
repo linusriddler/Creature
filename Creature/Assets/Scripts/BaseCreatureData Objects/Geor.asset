@@ -18,7 +18,7 @@ MonoBehaviour:
   spawnRotation: {x: -0.571, y: 43.901, z: -0.787}
   baseHealth: 12
   baseAttack: 16
-  baseDefense: 13
+  baseDefense: 14
   baseSpeed: 8
   learnableMoves:
   - {fileID: 11400000, guid: 3fbea638f8c17bc4a9592027f6fdf804, type: 2}

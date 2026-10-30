@@ -1,11 +1,16 @@
+
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
-
-// This Enum tracks the current state of the battle
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
+public enum BattleState
+{
+    START,
+    PLAYERTURN,
+    ENEMYTURN,
+    BUSY,
+    WON,
+    LOST
+}
 
 public class BattleManager : MonoBehaviour
 {
@@ -21,153 +26,354 @@ public class BattleManager : MonoBehaviour
     [Header("Managers")]
     public SpawnManager spawnManager;
 
+    [Header("Player Settings")]
+    [Range(1, 100)]
+    public int startingPlayerLevel = 5;
+
     [Header("Encounter Settings")]
-    // These will now show up as boxes you can type numbers into in Unity!
+    [Range(1, 100)]
     public int minimumEncounterLevel = 3;
+
+    [Range(1, 100)]
     public int maximumEncounterLevel = 6;
 
-    [Header("Modifiers")]
-    public float criticalHitChance = 0.05f; // 5% chance to crit
+    [Header("Combat Settings")]
+    [Range(0f, 1f)]
+    public float criticalHitChance = 0.05f;
 
+    public float actionDelay = 0.6f;
 
+    // The move chosen by the player for the current turn.
+    private MoveData selectedPlayerMove;
 
-
-    void Start()
+    private void Start()
     {
-        currentState = BattleState.START;
         SetupBattle();
     }
 
-    void SetupBattle()
+    private void SetupBattle()
     {
+        currentState = BattleState.START;
+
+        if (playerCreature == null || spawnManager == null)
+        {
+            Debug.LogError("BattleManager is missing required references!");
+            enabled = false;
+            return;
+        }
+
+        // Only initialize the player if they are new.
+        // Existing creatures retain their level, XP, and HP.
+        if (!playerCreature.IsInitialized)
+        {
+            BaseCreatureData data =
+                playerTemplate != null
+                ? playerTemplate
+                : playerCreature.baseData;
+
+            playerCreature.Initialize(data, startingPlayerLevel);
+        }
+
+        int minLevel = Mathf.Clamp(
+            minimumEncounterLevel, 1, CombatBalance.MaxLevel
+        );
+
+        int maxLevel = Mathf.Clamp(
+            maximumEncounterLevel, minLevel, CombatBalance.MaxLevel
+        );
+
+        enemyCreature =
+            spawnManager.GenerateRandomEncounter(minLevel, maxLevel);
+
+        if (enemyCreature == null)
+        {
+            Debug.LogError("Encounter generation failed!");
+            enabled = false;
+            return;
+        }
+
+        // Compatibility with spawners that instantiate a creature
+        // but do not initialize it themselves.
+        if (!enemyCreature.IsInitialized)
+        {
+            int enemyLevel = Random.Range(minLevel, maxLevel + 1);
+
+            enemyCreature.Initialize(
+                enemyCreature.baseData,
+                enemyLevel
+            );
+        }
+
+        if (!playerCreature.IsInitialized ||
+            !enemyCreature.IsInitialized ||
+            playerCreature == enemyCreature ||
+            playerCreature.IsFainted ||
+            enemyCreature.IsFainted ||
+            !HasUsableMoves(playerCreature) ||
+            !HasUsableMoves(enemyCreature))
+        {
+            Debug.LogError(
+                "Battle setup failed. Check initialization, HP, and moves."
+            );
+            enabled = false;
+            return;
+        }
+
         Debug.Log("--- BATTLE START ---");
 
-        // Initialize stats
-        playerCreature.Initialize(playerTemplate, 5);
-        enemyCreature = spawnManager.GenerateRandomEncounter(minimumEncounterLevel, maximumEncounterLevel);
+        Debug.Log(
+            $"{playerCreature.baseData.speciesName} (Lv. {playerCreature.currentLevel}) " +
+            $"VS {enemyCreature.baseData.speciesName} (Lv. {enemyCreature.currentLevel})"
+        );
 
-        // TURN ORDER SPEED CHECK: Compare who is faster!
-        if (playerCreature.speed >= enemyCreature.speed)
-        {
-            Debug.Log($"{playerCreature.baseData.speciesName} is faster!");
-            PlayerTurn();
-        }
-        else
-        {
-            Debug.Log($"The wild {enemyCreature.baseData.speciesName} is faster!");
-            Invoke(nameof(EnemyTurn), 1.0f); // Enemy goes first automatically
-        }
-
+        StartCoroutine(BattleLoop());
     }
 
-    void PlayerTurn()
+    private bool HasUsableMoves(ActiveCreature creature)
     {
-        currentState = BattleState.PLAYERTURN;
-        Debug.Log($"What will {playerCreature.baseData.speciesName} do? (Press Spacebar to use Move 1)");
+        if (creature.activeMoves == null)
+            return false;
+
+        foreach (MoveData move in creature.activeMoves)
+        {
+            if (move != null)
+                return true;
+        }
+
+        return false;
     }
 
-     void Update()
+    private bool BothCreaturesAlive()
     {
-        // Keyboard tracking for now until we make a good UI Menu
-        if(currentState == BattleState.PLAYERTURN)
+        return !playerCreature.IsFainted && !enemyCreature.IsFainted;
+    }
+
+    private IEnumerator BattleLoop()
+    {
+        while (BothCreaturesAlive())
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            // The faster creature acts first each round.
+            // A speed tie is resolved randomly.
+            bool playerFirst =
+                playerCreature.speed > enemyCreature.speed ||
+                (playerCreature.speed == enemyCreature.speed &&
+                 Random.value < 0.5f);
+
+            if (playerFirst)
             {
-                //Execute First Move
-                ExecuteMove(playerCreature, enemyCreature,playerCreature.activeMoves[0]);
-            }
-        }
-    }
+                yield return PlayerAction();
 
-    void ExecuteMove(ActiveCreature attacker, ActiveCreature defender, MoveData move)
-    {
-        currentState = BattleState.BUSY; // Lock inputs so can't spam moves
-        Debug.Log($"{attacker.baseData.speciesName} used {move.moveName}!");
+                if (!BothCreaturesAlive())
+                    break;
 
-       
-    // 1. CRITICAL HIT MATH (5% chance to crit)
-    bool isCrit = Random.value <= criticalHitChance;
-    float critMultiplier = isCrit ? 1.5f : 1.0f; 
-
-    // 2. RANDOM DAMAGE VARIANCE (85% to 100% of full power)
-    float randomVariance = Random.Range(0.85f, 1.00f);
-
-    // 3. FIXED PACE MATH (The Formula Overhaul)
-    // We introduce a level weight component and a scaling divisor to control the huge Move Power numbers.
-    float levelWeight = ((2f * attacker.currentLevel) / 5f) + 2f; 
-    
-    // Prevent Division by Zero
-    float targetDefense = Mathf.Max(1f, defender.defense);
-
-    // Calculate core mitigation: (Attack / Defense)
-    float statRatio = (float)attacker.attack / targetDefense;
-
-    // Divide by 50 (or a custom pacing scaler) to shrink the Move Power down to an digestible size
-    float rawDamage = ((levelWeight * move.power * statRatio) / 50f);
-
-    // 4. ADDITIVE FLOOR + FINAL ROUNDING
-    // Adding +2 guarantees a baseline output. Even if stats are identical or defense is buffed to high heaven,
-    // the floor ensures early combat progresses cleanly.
-    int finalDamage = Mathf.RoundToInt(rawDamage * randomVariance * critMultiplier) + 2;
-
-    // Absolute fallback constraint just in case code encounters a edge-case negative modifier
-    finalDamage = Mathf.Max(1, finalDamage);
-
-    if (isCrit) Debug.Log("<color=yellow>A critical hit!</color>");
-
-    // Deal damage
-    defender.TakeDamage(finalDamage);
-
-        if (isCrit) Debug.Log("<color=yellow>A critical hit!</color>");
-
-
-        // Deal damage
-        defender.TakeDamage(finalDamage);
-
-        // Check if the defender has fainted
-        if (defender.currentHp <= 0)
-        {
-            EndBattle(attacker == playerCreature); // If attacker was player, player won!
-        }
-        else
-        {
-            // If the battle continues, pass the turn to the other combatant
-            if (attacker == playerCreature)
-            {
-                Invoke(nameof(EnemyTurn), 1.5f); // Wait so text is readable
+                yield return EnemyAction();
             }
             else
             {
-                Invoke(nameof(PlayerTurn), 1.5f); // Wait so text is readable
+                yield return EnemyAction();
+
+                if (!BothCreaturesAlive())
+                    break;
+
+                yield return PlayerAction();
             }
-            
         }
+
+        EndBattle();
     }
-    
-    void EnemyTurn()
+
+    private IEnumerator PlayerAction()
+    {
+        selectedPlayerMove = null;
+        currentState = BattleState.PLAYERTURN;
+
+        Debug.Log(
+            $"What will {playerCreature.baseData.speciesName} do? " +
+            "(Press 1-4 to select a move, or Space for Move 1)"
+        );
+
+        // Wait until the player makes a valid choice.
+        yield return new WaitUntil(() => selectedPlayerMove != null);
+
+        yield return ExecuteMove(
+            playerCreature,
+            enemyCreature,
+            selectedPlayerMove
+        );
+    }
+
+    private IEnumerator EnemyAction()
     {
         currentState = BattleState.ENEMYTURN;
-        Debug.Log($"{enemyCreature.baseData.speciesName} is deciding what to do...");
 
-        // AI Logic: For now, just use the first move
-        MoveData enemyMove = enemyCreature.activeMoves[0];
+        Debug.Log(
+            $"{enemyCreature.baseData.speciesName} is choosing a move..."
+        );
 
-        ExecuteMove(enemyCreature, playerCreature, enemyMove);
+        yield return new WaitForSeconds(actionDelay);
+
+        // Basic AI: randomly choose an available move.
+        int index = Random.Range(
+            0,
+            enemyCreature.activeMoves.Count
+        );
+
+        MoveData chosenMove = enemyCreature.activeMoves[index];
+
+        yield return ExecuteMove(
+            enemyCreature,
+            playerCreature,
+            chosenMove
+        );
     }
 
-    void EndBattle(bool playerWon)
+
+
+    private IEnumerator ExecuteMove(
+        ActiveCreature attacker,
+        ActiveCreature defender,
+        MoveData move)
     {
-        if(playerWon)
+        currentState = BattleState.BUSY;
+
+        Debug.Log(
+            $"{attacker.baseData.speciesName} used {move.moveName}!"
+        );
+
+        yield return new WaitForSeconds(0.25f);
+
+        // STEP 1: ACCURACY CHECK
+        int accuracyRoll = Random.Range(0, 100);
+
+        if (accuracyRoll >= move.accuracy)
+        {
+            Debug.Log($"{move.moveName} missed!");
+
+            yield return new WaitForSeconds(actionDelay);
+            yield break;
+        }
+
+        // STEP 2: DODGE CHECK
+        float dodgeChance = CombatBalance.CalculateDodgeChance(
+            attacker.speed,
+            defender.speed
+        );
+
+        if (Random.value < dodgeChance)
+        {
+            Debug.Log(
+                $"<color=cyan>{defender.baseData.speciesName} " +
+                $"dodged the attack!</color>"
+            );
+
+            yield return new WaitForSeconds(actionDelay);
+            yield break;
+        }
+
+        // STEP 3: DETERMINE OFFENSIVE STAT
+        int offensiveStat;
+
+        if (move.offensiveStat == MoveOffenseStat.Defense)
+        {
+            offensiveStat = Mathf.RoundToInt(attacker.defense);
+        }
+        else
+        {
+            offensiveStat = attacker.attack;
+        }
+
+        // STEP 4: CRITICAL HIT CHECK
+        bool isCritical = Random.value < criticalHitChance;
+
+        // STEP 5: CALCULATE DAMAGE
+        int damage = CombatBalance.CalculateDamage(
+            attacker.currentLevel,
+            offensiveStat,
+            defender.defense,
+            move.power,
+            isCritical
+        );
+
+        if (isCritical)
+        {
+            Debug.Log("<color=yellow>Critical hit!</color>");
+        }
+
+        // STEP 6: APPLY DAMAGE
+        defender.TakeDamage(damage);
+
+        yield return new WaitForSeconds(actionDelay);
+    }
+
+
+    // This method can also be called from future UI buttons.
+    public void SelectMove(int index)
+    {
+        if (currentState != BattleState.PLAYERTURN)
+            return;
+
+        if (index < 0 || index >= playerCreature.activeMoves.Count)
+            return;
+
+        MoveData move = playerCreature.activeMoves[index];
+
+        if (move == null)
+            return;
+
+        selectedPlayerMove = move;
+
+        // Prevent selecting another move this turn.
+        currentState = BattleState.BUSY;
+    }
+
+    private void Update()
+    {
+        if (currentState != BattleState.PLAYERTURN)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) ||
+            Input.GetKeyDown(KeyCode.Space))
+        {
+            SelectMove(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectMove(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SelectMove(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SelectMove(3);
+        }
+    }
+
+    private void EndBattle()
+    {
+        bool playerWon =
+            !playerCreature.IsFainted && enemyCreature.IsFainted;
+
+        if (playerWon)
         {
             currentState = BattleState.WON;
-            Debug.Log("Player won the battle!");
+
+            Debug.Log("PLAYER WON!");
+
+            int reward = CombatBalance.ExperienceReward(
+                enemyCreature.currentLevel
+            );
+
+            Debug.Log($"Gained {reward} EXP!");
+
+            playerCreature.GainExperience(reward);
         }
         else
         {
             currentState = BattleState.LOST;
-            Debug.Log("Player lost the battle!");
+
+            Debug.Log("PLAYER LOST!");
         }
     }
 }
-
-
