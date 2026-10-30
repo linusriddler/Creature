@@ -84,20 +84,39 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.BUSY; // Lock inputs so can't spam moves
         Debug.Log($"{attacker.baseData.speciesName} used {move.moveName}!");
 
-        // 1. CRITICAL HIT MATH (5% chance to crit)
-        bool isCrit = Random.value <= criticalHitChance;
-        float critMultiplier = isCrit ? 1.5f : 1.0f; // 1.5x damage on crit
+       
+    // 1. CRITICAL HIT MATH (5% chance to crit)
+    bool isCrit = Random.value <= criticalHitChance;
+    float critMultiplier = isCrit ? 1.5f : 1.0f; 
 
-        // 2. RANDOM DAMAGE VARIANCE (90% to 100% of full power)
-        float randomVariance = Random.Range(0.90f, 1.00f);
+    // 2. RANDOM DAMAGE VARIANCE (85% to 100% of full power)
+    float randomVariance = Random.Range(0.85f, 1.00f);
 
-        // 3. CALCULATE COMBINED DAMAGE POOL
-        int baseDamage = attacker.attack * move.power;
-        // Prevent Division by Zero by forcing defense to be at least 1
-        float baseDefense = Mathf.Max(1f, defender.defense);
+    // 3. FIXED PACE MATH (The Formula Overhaul)
+    // We introduce a level weight component and a scaling divisor to control the huge Move Power numbers.
+    float levelWeight = ((2f * attacker.currentLevel) / 5f) + 2f; 
+    
+    // Prevent Division by Zero
+    float targetDefense = Mathf.Max(1f, defender.defense);
 
-        // Perform math entirely in float space, round it, and enforce a 1 HP minimum floor
-        int finalDamage = Mathf.Max(1, Mathf.RoundToInt((float)baseDamage * randomVariance * critMultiplier / baseDefense));
+    // Calculate core mitigation: (Attack / Defense)
+    float statRatio = (float)attacker.attack / targetDefense;
+
+    // Divide by 50 (or a custom pacing scaler) to shrink the Move Power down to an digestible size
+    float rawDamage = ((levelWeight * move.power * statRatio) / 50f);
+
+    // 4. ADDITIVE FLOOR + FINAL ROUNDING
+    // Adding +2 guarantees a baseline output. Even if stats are identical or defense is buffed to high heaven,
+    // the floor ensures early combat progresses cleanly.
+    int finalDamage = Mathf.RoundToInt(rawDamage * randomVariance * critMultiplier) + 2;
+
+    // Absolute fallback constraint just in case code encounters a edge-case negative modifier
+    finalDamage = Mathf.Max(1, finalDamage);
+
+    if (isCrit) Debug.Log("<color=yellow>A critical hit!</color>");
+
+    // Deal damage
+    defender.TakeDamage(finalDamage);
 
         if (isCrit) Debug.Log("<color=yellow>A critical hit!</color>");
 

@@ -16,9 +16,9 @@ MonoBehaviour:
   creaturePrefab: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0}
-  baseHealth: 14
-  baseAttack: 6
-  baseDefense: 5
+  baseHealth: 12
+  baseAttack: 8
+  baseDefense: 8
   baseSpeed: 20
   learnableMoves:
   - {fileID: 11400000, guid: e425a85247873fa4d8e06760b30659d4, type: 2}

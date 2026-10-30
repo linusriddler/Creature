@@ -25,15 +25,16 @@ public class ActiveCreature : MonoBehaviour
         baseData = data;
         currentLevel = level;
 
-        //RPG MATH: Scale Stats based on level
-        maxHP = baseData.baseHealth + (level * 10) + level;
-        attack = baseData.baseAttack + (level * 3);
-        speed = baseData.baseSpeed + (level * 2);
+        // HP scales slightly faster so battles don't become instant-kills late game
+        // A base health of 10 results in ~31 HP at Level 1, and ~120 HP at Level 10
+        maxHP = Mathf.RoundToInt(baseData.baseHealth * (1f + (level * 0.2f))) + (level * 6);
 
-        // Example: 2 base defense + (level 5 * 2) = 12 (12 points of defense)
-        defense = baseData.baseDefense + (level * 2);
+        // Multiplicative scaling: Every level adds 10% of the creature's native BASE stat
+        // If Base Attack is 14, it gains 1.4 per level. If Base Attack is 6, it gains 0.6.
+        attack = Mathf.RoundToInt(baseData.baseAttack * (1f + (level * 0.1f)));
+        speed = Mathf.RoundToInt(baseData.baseSpeed * (1f + (level * 0.1f)));
+        defense = Mathf.RoundToInt(baseData.baseDefense * (1f + (level * 0.1f)));
 
-        // Start combat at full health
         currentHp = maxHP;
 
         //Clear any existing moves and copy up to 4 moves from the template data
