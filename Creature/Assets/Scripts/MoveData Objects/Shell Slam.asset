@@ -15,4 +15,5 @@ MonoBehaviour:
   moveName: Shell Slam
   power: 30
   accuracy: 100
+  offensiveStat: 1
   elementPack: 
