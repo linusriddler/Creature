@@ -23,7 +23,46 @@ public class CreatureInstanceData
         experience = 0;
 
         currentHP = CombatBalance.CalculateMaxHP(species.baseHealth, this.level);
+
+        if (species.learnableMoves != null)
+        {
+            foreach (MoveData move in species.learnableMoves)
+            {
+                if (move == null) continue;
+                if (knownMoves.Count >= 4) break;
+
+                knownMoves.Add(move);
+            }
+        }
     }
+
+    // Load saved data into an ActiveCreature in battle.
+    public void LoadInto(ActiveCreature creature)
+    {
+        if (species == null || creature == null)
+            return;
+
+        creature.Initialize(species, level);
+
+        creature.experience = Mathf.Max(0, experience);
+
+        creature.currentHp = Mathf.Clamp(currentHP, 0, creature.maxHP);
+    }
+
+    // Save updated battle stats back into the team.
+    public void SaveFrom(ActiveCreature creature)
+    {
+        if (creature == null || !creature.IsInitialized)
+            return;
+
+        species = creature.baseData;
+        level = creature.currentLevel;
+        experience = creature.experience;
+        currentHP = creature.currentHp;
+
+        knownMoves = new List<MoveData>(creature.activeMoves);
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
