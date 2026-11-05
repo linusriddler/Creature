@@ -224,12 +224,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12789304}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7072, y: 0.928, z: 4.3887}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5034399, y: 0.82799995, z: -1.2393398}
   m_LocalScale: {x: 0.050236084, y: 0.050236084, z: 0.050236084}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1295235811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &21121487
 GameObject:
@@ -840,12 +840,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223145589}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.9419, y: 0.928, z: 4.3887}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.26874018, y: 0.82799995, z: -1.2393398}
   m_LocalScale: {x: 0.050236084, y: 0.050236084, z: 0.050236084}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1295235811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &233511955
 GameObject:
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 233511959}
   - component: {fileID: 233511958}
   - component: {fileID: 233511957}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1828,7 +1828,7 @@ GameObject:
   - component: {fileID: 651649793}
   - component: {fileID: 651649792}
   - component: {fileID: 651649791}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2035,12 +2035,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669439789}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.9551, y: 0.928, z: 4.42}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.2555399, y: 0.82799995, z: -1.2080398}
   m_LocalScale: {x: 0.11114424, y: 0.11114424, z: 0.11114424}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1295235811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &773807085
 GameObject:
@@ -2229,7 +2229,7 @@ GameObject:
   - component: {fileID: 855148645}
   - component: {fileID: 855148644}
   - component: {fileID: 855148643}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2565,7 +2565,7 @@ GameObject:
   - component: {fileID: 1025521354}
   - component: {fileID: 1025521353}
   - component: {fileID: 1025521352}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2796,6 +2796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3789822324103065562, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7190318716554794719, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -2830,7 +2834,7 @@ GameObject:
   - component: {fileID: 1178445149}
   - component: {fileID: 1178445148}
   - component: {fileID: 1178445147}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3152,6 +3156,10 @@ Transform:
   - {fileID: 166370018}
   - {fileID: 405039480}
   - {fileID: 1423484827}
+  - {fileID: 669439793}
+  - {fileID: 1796531334}
+  - {fileID: 12789308}
+  - {fileID: 223145593}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1343902495
@@ -3166,7 +3174,7 @@ GameObject:
   - component: {fileID: 1343902498}
   - component: {fileID: 1343902497}
   - component: {fileID: 1343902496}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3911,7 +3919,7 @@ GameObject:
   - component: {fileID: 1728301484}
   - component: {fileID: 1728301483}
   - component: {fileID: 1728301482}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4245,12 +4253,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796531330}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.723, y: 0.928, z: 4.42}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4876399, y: 0.82799995, z: -1.2080398}
   m_LocalScale: {x: 0.11114424, y: 0.11114424, z: 0.11114424}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1295235811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1815139920
 GameObject:
@@ -4264,7 +4272,7 @@ GameObject:
   - component: {fileID: 1815139924}
   - component: {fileID: 1815139923}
   - component: {fileID: 1815139922}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4434,9 +4442,9 @@ Canvas:
   m_GameObject: {fileID: 1921187915}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 613310825}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -4693,7 +4701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3818182457555723879, guid: 6460c0630a8ee2745abc5ce44220b8f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.2064798
+      value: -2.19
       objectReference: {fileID: 0}
     - target: {fileID: 3818182457555723879, guid: 6460c0630a8ee2745abc5ce44220b8f0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4701,7 +4709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3818182457555723879, guid: 6460c0630a8ee2745abc5ce44220b8f0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.16281
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3818182457555723879, guid: 6460c0630a8ee2745abc5ce44220b8f0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4768,7 +4776,3 @@ SceneRoots:
   - {fileID: 934672588}
   - {fileID: 834800807}
   - {fileID: 1295235811}
-  - {fileID: 669439793}
-  - {fileID: 1796531334}
-  - {fileID: 12789308}
-  - {fileID: 223145593}
