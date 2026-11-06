@@ -1,65 +1,93 @@
+
 using UnityEngine;
 using System.Collections.Generic;
 
 public class SpawnManager : MonoBehaviour
 {
-    [Header("Encounter Pool'")]
-    // List of creatures that can be encountered 
-    public List<BaseCreatureData> encounterPool = new List<BaseCreatureData>();
+    [Header("Encounter Pool")]
+    public List<BaseCreatureData> encounterPool =
+        new List<BaseCreatureData>();
 
-    [Header("Spawn Points")]
+    [Header("Spawn Point")]
     public Transform enemySpawnLocation;
 
     public ActiveCreature GenerateRandomEncounter(int minLevel, int maxLevel)
     {
-        // Safety Check
-        if (encounterPool.Count == 0)
+        if (enemySpawnLocation == null)
         {
-            Debug.LogWarning("Encounter Pool is empty! Cannot generate encounter.");
+            Debug.LogError("Enemy spawn location is missing!");
             return null;
         }
 
-        // Picks a random creature template from the encounter pool
-        int randomIndex = Random.Range(0, encounterPool.Count);
-        BaseCreatureData chosenTemplate = encounterPool[randomIndex];
+        List<BaseCreatureData> validPool =
+            encounterPool.FindAll(creature => creature != null);
 
-        // Create a new GameObject named after the species when running
-        GameObject newEnemyObject;
-        if(chosenTemplate.creaturePrefab != null)
+        if (validPool.Count == 0)
         {
-            // Instantiates the 3D/2D model directly at the spawn point anchor location
-            newEnemyObject = Instantiate(chosenTemplate.creaturePrefab, chosenTemplate.spawnPosition, Quaternion.Euler(chosenTemplate.spawnRotation));
-            newEnemyObject.name = $"Wild_{chosenTemplate.speciesName}";
+            Debug.LogWarning("Encounter Pool is empty!");
+            return null;
+        }
+
+        BaseCreatureData chosenTemplate =
+            validPool[Random.Range(0, validPool.Count)];
+
+        int minimum = Mathf.Clamp(minLevel, 1, 100);
+        int maximum = Mathf.Clamp(maxLevel, minimum, 100);
+
+        int randomLevel = Random.Range(
+            minimum,
+            maximum + 1
+        );
+
+        GameObject enemyObject;
+
+        Vector3 position = enemySpawnLocation.position;
+
+        Quaternion rotation =
+            enemySpawnLocation.rotation *
+            Quaternion.Euler(chosenTemplate.spawnRotation);
+
+        if (chosenTemplate.creaturePrefab != null)
+        {
+            enemyObject = Instantiate(
+                chosenTemplate.creaturePrefab,
+                position,
+                rotation
+            );
         }
         else
         {
-            // Backup fallback if you forgot to drag a prefab asset into the data slot
-            newEnemyObject = new GameObject($"Wild_{chosenTemplate.speciesName} (Missing Prefab)");
-            newEnemyObject.transform.position = enemySpawnLocation.position;
+            enemyObject = new GameObject();
+            enemyObject.transform.SetPositionAndRotation(
+                position,
+                rotation
+            );
+
+            Debug.LogWarning(
+                chosenTemplate.speciesName +
+                " has no creature prefab!"
+            );
         }
 
+        enemyObject.name =
+            $"Wild_{chosenTemplate.speciesName}";
 
-        // 3. Attach runtime tracking component and initialize stats
-        ActiveCreature enemyComponent = newEnemyObject.AddComponent<ActiveCreature>();
-        int randomLevel = Random.Range(minLevel, maxLevel + 1);
-        enemyComponent.Initialize(chosenTemplate, randomLevel);
+        // Avoid adding a duplicate ActiveCreature component.
+        ActiveCreature creature =
+            enemyObject.GetComponent<ActiveCreature>();
 
+        if (creature == null)
+        {
+            creature = enemyObject.AddComponent<ActiveCreature>();
+        }
 
-        Debug.Log($"[SPAWNER] Successfully generated a Level {randomLevel} {chosenTemplate.speciesName}!");
+        creature.Initialize(chosenTemplate, randomLevel);
 
-        return enemyComponent;
-    }
+        Debug.Log(
+            $"Wild Level {randomLevel} " +
+            $"{chosenTemplate.speciesName} appeared!"
+        );
 
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return creature;
     }
 }
