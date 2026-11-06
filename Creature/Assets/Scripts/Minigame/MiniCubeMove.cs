@@ -8,7 +8,9 @@ public class MiniCubeMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
         rb.freezeRotation = true;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
     }
     void Update()
     {
@@ -22,8 +24,7 @@ public class MiniCubeMove : MonoBehaviour
         {
             horizontal = 0f;
         }
-        moveDirection = new Vector3(horizontal, 0f, vertical);
-
+        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
         if (moveDirection != Vector3.zero)
         {
             transform.forward = moveDirection;
@@ -31,6 +32,9 @@ public class MiniCubeMove : MonoBehaviour
     }
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
+        if (moveDirection != Vector3.zero)
+        {
+            rb.AddForce(moveDirection * moveSpeed, ForceMode.Acceleration);
+        }
     }
 }
