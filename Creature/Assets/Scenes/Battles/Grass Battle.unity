@@ -1772,7 +1772,7 @@ MonoBehaviour:
   currentState: 0
   playerCreature: {fileID: 493900222}
   enemyCreature: {fileID: 0}
-  playerTemplate: {fileID: 11400000, guid: 90fed259d7a83804bbccda22093a9dcb, type: 2}
+  playerTemplate: {fileID: 11400000, guid: d4ee7d9c66cc3084c8747dd58169e863, type: 2}
   spawnManager: {fileID: 1730116933}
   startingPlayerLevel: 5
   minimumEncounterLevel: 5

@@ -51,81 +51,122 @@ public class BattleManager : MonoBehaviour
         SetupBattle();
     }
 
+
     private void SetupBattle()
     {
         currentState = BattleState.START;
 
+        Debug.Log("--- BATTLE START ---");
+
+        // STEP 1: Check required references
         if (playerCreature == null || spawnManager == null)
         {
-            Debug.LogError("BattleManager is missing required references!");
+            Debug.LogError(
+                "BattleManager is missing PlayerCreature or SpawnManager!"
+            );
             enabled = false;
             return;
         }
 
-        // Only initialize the player if they are new.
-        // Existing creatures retain their level, XP, and HP.
-        if (!playerCreature.IsInitialized)
+        // STEP 2: Load the player's creature from GameSession
+        if (GameSession.Instance != null)
         {
-            BaseCreatureData data =
-                playerTemplate != null
-                ? playerTemplate
-                : playerCreature.baseData;
+            bool loadedSuccessfully =
+                GameSession.Instance.LoadActiveCreature(playerCreature);
 
-            playerCreature.Initialize(data, startingPlayerLevel);
+            if (!loadedSuccessfully)
+            {
+                Debug.LogError(
+                    "Failed to load the player's creature from GameSession!"
+                );
+                enabled = false;
+                return;
+            }
+
+            Debug.Log(
+                $"Loaded {playerCreature.baseData.speciesName} " +
+                $"from team at Level {playerCreature.currentLevel}. " +
+                $"HP: {playerCreature.currentHp}/{playerCreature.maxHP}"
+            );
+        }
+        else
+        {
+            // Fallback for testing the battle scene directly
+            // without entering from the Overworld.
+            if (!playerCreature.IsInitialized)
+            {
+                BaseCreatureData data =
+                    playerTemplate != null
+                    ? playerTemplate
+                    : playerCreature.baseData;
+
+                if (data == null)
+                {
+                    Debug.LogError("No player creature template assigned!");
+                    enabled = false;
+                    return;
+                }
+
+                playerCreature.Initialize(data, startingPlayerLevel);
+            }
         }
 
+        // STEP 3: Make sure the player can battle
+        if (!playerCreature.IsInitialized || playerCreature.IsFainted)
+        {
+            Debug.LogError(
+                "Player creature is uninitialized or has fainted!"
+            );
+            enabled = false;
+            return;
+        }
+
+        // STEP 4: Generate a random wild creature
         int minLevel = Mathf.Clamp(
-            minimumEncounterLevel, 1, CombatBalance.MaxLevel
+            minimumEncounterLevel,
+            1,
+            CombatBalance.MaxLevel
         );
 
         int maxLevel = Mathf.Clamp(
-            maximumEncounterLevel, minLevel, CombatBalance.MaxLevel
+            maximumEncounterLevel,
+            minLevel,
+            CombatBalance.MaxLevel
         );
 
-        enemyCreature =
-            spawnManager.GenerateRandomEncounter(minLevel, maxLevel);
+        enemyCreature = spawnManager.GenerateRandomEncounter(
+            minLevel,
+            maxLevel
+        );
 
-        if (enemyCreature == null)
+        // STEP 5: Make sure the enemy spawned correctly
+        if (enemyCreature == null || !enemyCreature.IsInitialized)
         {
-            Debug.LogError("Encounter generation failed!");
+            Debug.LogError("Failed to generate enemy creature!");
             enabled = false;
             return;
         }
 
-        // Compatibility with spawners that instantiate a creature
-        // but do not initialize it themselves.
-        if (!enemyCreature.IsInitialized)
-        {
-            int enemyLevel = Random.Range(minLevel, maxLevel + 1);
-
-            enemyCreature.Initialize(
-                enemyCreature.baseData,
-                enemyLevel
-            );
-        }
-
-        if (!playerCreature.IsInitialized ||
-            !enemyCreature.IsInitialized ||
-            playerCreature == enemyCreature ||
-            playerCreature.IsFainted ||
-            enemyCreature.IsFainted ||
-            !HasUsableMoves(playerCreature) ||
+        // STEP 6: Verify both creatures have usable moves
+        if (!HasUsableMoves(playerCreature) ||
             !HasUsableMoves(enemyCreature))
         {
             Debug.LogError(
-                "Battle setup failed. Check initialization, HP, and moves."
+                "One or both creatures have no usable moves!"
             );
             enabled = false;
             return;
         }
 
-        Debug.Log("--- BATTLE START ---");
-
+        // STEP 7: Display battle information
         Debug.Log(
-            $"{playerCreature.baseData.speciesName} (Lv. {playerCreature.currentLevel}) " +
-            $"VS {enemyCreature.baseData.speciesName} (Lv. {enemyCreature.currentLevel})"
+            $"{playerCreature.baseData.speciesName} " +
+            $"(Level {playerCreature.currentLevel}) " +
+            $"VS Wild {enemyCreature.baseData.speciesName} " +
+            $"(Level {enemyCreature.currentLevel})"
         );
 
+        // STEP 8: Start the turn-based battle
         StartCoroutine(BattleLoop());
     }
 
@@ -359,7 +400,7 @@ public class BattleManager : MonoBehaviour
         {
             currentState = BattleState.WON;
 
-            Debug.Log("PLAYER WON!");
+            Debug.Log("Player won the battle!");
 
             int reward = CombatBalance.ExperienceReward(
                 enemyCreature.currentLevel
@@ -373,7 +414,28 @@ public class BattleManager : MonoBehaviour
         {
             currentState = BattleState.LOST;
 
-            Debug.Log("PLAYER LOST!");
+            Debug.Log("Player lost the battle!");
+
+            // Temporary prototype behavior:
+            // Heal after defeat to avoid returning with
+            // an unusable creature.
+            playerCreature.HealToFull();
+        }
+
+        // Save updated progress to the persistent team.
+        if (GameSession.Instance != null)
+        {
+            GameSession.Instance.SaveActiveCreature(playerCreature);
+
+            StartCoroutine(ReturnAfterBattle());
         }
     }
+
+    private IEnumerator ReturnAfterBattle()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+
+        GameSession.Instance.ReturnToOverworld();
+    }
+
 }

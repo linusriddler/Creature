@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class Camera : MonoBehaviour
+public class OverworldCursorController : MonoBehaviour
 {
     public float mouseSensitivity = 200f;
     public Transform cameraTransform;
