@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: Assembly-CSharp::MoveData
   moveName: Fireball
-  power: 60
-  accuracy: 100
+  power: 70
+  accuracy: 70
+  offensiveStat: 0
   elementPack: 
