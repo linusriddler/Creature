@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Condi
   m_EditorClassIdentifier: Assembly-CSharp::BaseCreatureData
   speciesName: Condi
-  creaturePrefab: {fileID: 4958821126702913160, guid: 3bf9af160e2ba8640a1dc5a7c5f24875, type: 3}
+  creaturePrefab: {fileID: 2245132441376235583, guid: e1f501ad87c106f468b6a0335cd20232, type: 3}
   spawnPosition: {x: 1.989959, y: 0.295, z: 2.060579}
   spawnRotation: {x: -0.571, y: 133.787, z: -0.787}
   baseHealth: 20
