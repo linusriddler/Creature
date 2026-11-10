@@ -251,6 +251,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4123537819610902499, guid: 5e415f68c58c51648bca36a710b48652, type: 3}
   m_PrefabInstance: {fileID: 1077095946}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &689204115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 689204117}
+  - component: {fileID: 689204116}
+  m_Layer: 0
+  m_Name: GameSession
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &689204116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689204115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5363f90b4fac3f46a4d623fcf842415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameSession
+  startingSpecies: {fileID: 11400000, guid: d4ee7d9c66cc3084c8747dd58169e863, type: 2}
+  startingLevel: 5
+  team: []
+  activeCreatureIndex: 0
+  encounterCooldown: 3
+--- !u!4 &689204117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689204115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.71326, y: 2.40508, z: 9.13043}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +609,7 @@ GameObject:
   - component: {fileID: 1235110962}
   - component: {fileID: 1235110966}
   m_Layer: 0
-  m_Name: CreatureSpawnZone
+  m_Name: Grass Encounter Zone
   m_TagString: SpawnZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +630,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -668,10 +717,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1235110961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dabda674176d5b64faf8f33a094c030b, type: 3}
+  m_Script: {fileID: 11500000, guid: d6faf5a044f5322448d40cbecc20f5ff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CreatureSpawn
-  MonsterSpawnable: 0
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterZone
+  battleSceneName: Grass Battle
+  encounterChance: 1
+  distancePerCheck: 0.5
 --- !u!1 &1293899226
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,19 +855,6 @@ MonoBehaviour:
   mouseSensitivity: 200
   cameraTransform: {fileID: 502004292}
   target: {fileID: 1866444236}
---- !u!114 &1453385378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453385366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dabda674176d5b64faf8f33a094c030b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CreatureSpawn
-  MonsterSpawnable: 0
 --- !u!1 &1666006057
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,8 +867,9 @@ GameObject:
   - component: {fileID: 1666006061}
   - component: {fileID: 1666006060}
   - component: {fileID: 1666006059}
+  - component: {fileID: 1666006063}
   m_Layer: 0
-  m_Name: Respawn Zone
+  m_Name: Sand Encounter Zone
   m_TagString: CreatureRespawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -851,7 +890,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -929,6 +968,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1666006063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666006057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6faf5a044f5322448d40cbecc20f5ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterZone
+  battleSceneName: Sand Battle
+  encounterChance: 1
+  distancePerCheck: 0.5
 --- !u!4 &1866444236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3847734513065146202, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
@@ -1139,9 +1193,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3225807282447761751, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1453385372}
-    - targetCorrespondingSourceObject: {fileID: 3225807282447761751, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1453385378}
   m_SourcePrefab: {fileID: 100100000, guid: 04d7c88a6cf629e4394081a6a182a3ab, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1158,3 +1209,4 @@ SceneRoots:
   - {fileID: 1235110965}
   - {fileID: 1666006062}
   - {fileID: 4386003376886156579}
+  - {fileID: 689204117}
