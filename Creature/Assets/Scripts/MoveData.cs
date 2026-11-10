@@ -26,6 +26,10 @@ public class MoveData : ScriptableObject
     [Tooltip("Determines which attacker stat is used to calculate damage.")]
     public MoveOffenseStat offensiveStat = MoveOffenseStat.Attack;
 
+    [Header("Description")]
+    [TextArea(2, 4)]
+    public string description;
+
     [Header("Element")]
     public string elementPack;
 }

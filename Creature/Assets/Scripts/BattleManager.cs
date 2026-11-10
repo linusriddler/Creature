@@ -9,8 +9,11 @@ public enum BattleState
     ENEMYTURN,
     BUSY,
     WON,
-    LOST
+    LOST,
+    ESCAPED
 }
+
+
 
 public class BattleManager : MonoBehaviour
 {
@@ -43,6 +46,8 @@ public class BattleManager : MonoBehaviour
 
     public float actionDelay = 0.6f;
 
+
+
     // The move chosen by the player for the current turn.
     private MoveData selectedPlayerMove;
 
@@ -50,6 +55,23 @@ public class BattleManager : MonoBehaviour
     {
         SetupBattle();
     }
+
+    private enum PlayerActionChoice
+    {
+        None,
+        Attack,
+        Item,
+        Switch,
+        Run
+    }
+
+    private PlayerActionChoice pendingAction =
+    PlayerActionChoice.None;
+
+    private int pendingActionIndex = -1;
+    private bool escapedBattle = false;
+
+
 
 
     private void SetupBattle()
@@ -189,12 +211,13 @@ public class BattleManager : MonoBehaviour
         return !playerCreature.IsFainted && !enemyCreature.IsFainted;
     }
 
+
     private IEnumerator BattleLoop()
     {
-        while (BothCreaturesAlive())
+        escapedBattle = false;
+
+        while (BothCreaturesAlive() && !escapedBattle)
         {
-            // The faster creature acts first each round.
-            // A speed tie is resolved randomly.
             bool playerFirst =
                 playerCreature.speed > enemyCreature.speed ||
                 (playerCreature.speed == enemyCreature.speed &&
@@ -204,7 +227,7 @@ public class BattleManager : MonoBehaviour
             {
                 yield return PlayerAction();
 
-                if (!BothCreaturesAlive())
+                if (!BothCreaturesAlive() || escapedBattle)
                     break;
 
                 yield return EnemyAction();
@@ -213,35 +236,124 @@ public class BattleManager : MonoBehaviour
             {
                 yield return EnemyAction();
 
-                if (!BothCreaturesAlive())
+                if (!BothCreaturesAlive() || escapedBattle)
                     break;
 
                 yield return PlayerAction();
             }
         }
 
-        EndBattle();
+        // Escaping should not count as a win or loss.
+        if (!escapedBattle)
+            EndBattle();
     }
+
+
 
     private IEnumerator PlayerAction()
     {
-        selectedPlayerMove = null;
+        pendingAction = PlayerActionChoice.None;
+        pendingActionIndex = -1;
+
         currentState = BattleState.PLAYERTURN;
 
-        Debug.Log(
-            $"What will {playerCreature.baseData.speciesName} do? " +
-            "(Press 1-4 to select a move, or Space for Move 1)"
+        Debug.Log("Choose an action!");
+
+        // Wait for the player to use one of the UI options.
+        yield return new WaitUntil(
+            () => pendingAction != PlayerActionChoice.None
         );
 
-        // Wait until the player makes a valid choice.
-        yield return new WaitUntil(() => selectedPlayerMove != null);
+        currentState = BattleState.BUSY;
 
-        yield return ExecuteMove(
-            playerCreature,
-            enemyCreature,
-            selectedPlayerMove
-        );
+        switch (pendingAction)
+        {
+            case PlayerActionChoice.Attack:
+                {
+                    MoveData move =
+                        playerCreature.activeMoves[pendingActionIndex];
+
+                    yield return ExecuteMove(
+                        playerCreature,
+                        enemyCreature,
+                        move
+                    );
+
+                    break;
+                }
+
+            case PlayerActionChoice.Item:
+                {
+                    GameSession session = GameSession.Instance;
+
+                    int healAmount;
+
+                    if (pendingActionIndex == 0)
+                    {
+                        session.potionCount--;
+                        healAmount = 20;
+                    }
+                    else
+                    {
+                        session.superPotionCount--;
+                        healAmount = 50;
+                    }
+
+                    playerCreature.Heal(healAmount);
+
+                    Debug.Log(
+                        $"Used a healing item! " +
+                        $"HP: {playerCreature.currentHp}/{playerCreature.maxHP}"
+                    );
+
+                    yield return new WaitForSeconds(actionDelay);
+                    break;
+                }
+
+            case PlayerActionChoice.Switch:
+                {
+                    GameSession session = GameSession.Instance;
+
+                    // Save the outgoing creature.
+                    session.SaveActiveCreature(playerCreature);
+
+                    // Change the active team member.
+                    session.activeCreatureIndex = pendingActionIndex;
+
+                    // Load the incoming creature's stats.
+                    session.LoadActiveCreature(playerCreature);
+
+                    Debug.Log(
+                        $"Go, {playerCreature.baseData.speciesName}!"
+                    );
+
+                    yield return new WaitForSeconds(actionDelay);
+                    break;
+                }
+
+            case PlayerActionChoice.Run:
+                {
+                    escapedBattle = true;
+                    currentState = BattleState.ESCAPED;
+
+                    Debug.Log("Successfully escaped the battle!");
+
+                    yield return new WaitForSeconds(actionDelay);
+
+                    if (GameSession.Instance != null)
+                    {
+                        GameSession.Instance.SaveActiveCreature(
+                            playerCreature
+                        );
+
+                        GameSession.Instance.ReturnToOverworld();
+                    }
+
+                    break;
+                }
+        }
     }
+
 
     private IEnumerator EnemyAction()
     {
@@ -348,24 +460,90 @@ public class BattleManager : MonoBehaviour
 
 
     // This method can also be called from future UI buttons.
+
     public void SelectMove(int index)
     {
         if (currentState != BattleState.PLAYERTURN)
             return;
 
-        if (index < 0 || index >= playerCreature.activeMoves.Count)
+        if (index < 0 ||
+            index >= playerCreature.activeMoves.Count ||
+            playerCreature.activeMoves[index] == null)
             return;
 
-        MoveData move = playerCreature.activeMoves[index];
+        pendingActionIndex = index;
+        pendingAction = PlayerActionChoice.Attack;
 
-        if (move == null)
-            return;
-
-        selectedPlayerMove = move;
-
-        // Prevent selecting another move this turn.
         currentState = BattleState.BUSY;
     }
+
+    public void SelectRun()
+    {
+        if (currentState != BattleState.PLAYERTURN)
+            return;
+
+        pendingAction = PlayerActionChoice.Run;
+        currentState = BattleState.BUSY;
+    }
+
+    public void SelectItem(int itemIndex)
+    {
+        if (currentState != BattleState.PLAYERTURN)
+            return;
+
+        GameSession session = GameSession.Instance;
+
+        if (session == null)
+            return;
+
+        if (playerCreature.IsFainted ||
+            playerCreature.currentHp >= playerCreature.maxHP)
+            return;
+
+        if (itemIndex == 0 && session.potionCount <= 0)
+            return;
+
+        if (itemIndex == 1 && session.superPotionCount <= 0)
+            return;
+
+        if (itemIndex < 0 || itemIndex > 1)
+            return;
+
+        pendingActionIndex = itemIndex;
+        pendingAction = PlayerActionChoice.Item;
+
+        currentState = BattleState.BUSY;
+    }
+
+    public void SelectSwitch(int teamIndex)
+    {
+        if (currentState != BattleState.PLAYERTURN)
+            return;
+
+        GameSession session = GameSession.Instance;
+
+        if (session == null)
+            return;
+
+        if (teamIndex < 0 || teamIndex >= session.team.Count)
+            return;
+
+        if (teamIndex == session.activeCreatureIndex)
+            return;
+
+        CreatureInstanceData creature = session.team[teamIndex];
+
+        if (creature == null ||
+            creature.species == null ||
+            creature.currentHP <= 0)
+            return;
+
+        pendingActionIndex = teamIndex;
+        pendingAction = PlayerActionChoice.Switch;
+
+        currentState = BattleState.BUSY;
+    }
+
 
     private void Update()
     {
