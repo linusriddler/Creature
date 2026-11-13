@@ -285,6 +285,8 @@ MonoBehaviour:
   team: []
   activeCreatureIndex: 0
   encounterCooldown: 3
+  potionCount: 3
+  superPotionCount: 1
 --- !u!4 &689204117
 Transform:
   m_ObjectHideFlags: 0
