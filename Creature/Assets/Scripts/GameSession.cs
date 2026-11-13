@@ -32,10 +32,7 @@ public class GameSession : MonoBehaviour
     private float nextEncounterTime;
 
     [Header("Inventory")]
-    [Min(0)]
     public int potionCount = 3;
-
-    [Min(0)]
     public int superPotionCount = 1;
 
     public bool CanStartEncounter => !transitioning && !returningToOverworld && Time.time >= nextEncounterTime;
