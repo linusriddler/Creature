@@ -658,7 +658,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Potion x3
+  m_text: "Potion \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5070,6 +5070,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.099999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.10821014
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.99412805
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087612857521364178, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -167.576
+      objectReference: {fileID: 0}
     - target: {fileID: 8686060887972879327, guid: 2eb94130792aa4b4ca110a7b6c5ced6b, type: 3}
       propertyPath: m_Name
       value: Zanthor
@@ -8730,7 +8762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Super Potion x1
+  m_text: "Super Potion \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

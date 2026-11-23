@@ -280,9 +280,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5363f90b4fac3f46a4d623fcf842415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSession
-  startingSpecies: {fileID: 11400000, guid: d4ee7d9c66cc3084c8747dd58169e863, type: 2}
-  startingLevel: 5
-  team: []
+  startingSpecies: {fileID: 0}
+  startingLevel: 1
+  team:
+  - species: {fileID: 11400000, guid: d4ee7d9c66cc3084c8747dd58169e863, type: 2}
+    level: 5
+    experience: 0
+    currentHP: 100
+    knownMoves:
+    - {fileID: 11400000, guid: b1c0221c2b235f144ba17912aafa6c7f, type: 2}
+    - {fileID: 11400000, guid: beee145de9547f24bb85d904a05e3a79, type: 2}
+    - {fileID: 11400000, guid: e425a85247873fa4d8e06760b30659d4, type: 2}
   activeCreatureIndex: 0
   encounterCooldown: 3
   potionCount: 3

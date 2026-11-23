@@ -146,26 +146,42 @@ public class BattleMenuUI : MonoBehaviour
 
     // ---------------- ATTACK MENU ----------------
 
+
     public void OpenAttackMenu()
     {
+        if (battleManager == null ||
+            battleManager.playerCreature == null)
+        {
+            Debug.LogWarning("No active player creature!");
+            return;
+        }
+
         ShowPanel(attackPanel);
 
         selectedMove = -1;
-        moveDescription.text = "Select a move to inspect it.";
         useMoveButton.interactable = false;
+
+        moveDescription.text = "Select a move to inspect it.";
 
         var moves = battleManager.playerCreature.activeMoves;
 
         for (int i = 0; i < moveButtons.Length; i++)
         {
-            bool valid = i < moves.Count && moves[i] != null;
+            bool hasMove =
+                moves != null &&
+                i < moves.Count &&
+                moves[i] != null;
 
-            moveButtons[i].gameObject.SetActive(valid);
+            string name = hasMove ? moves[i].moveName : "";
 
-            if (valid)
-                moveLabels[i].text = moves[i].moveName;
+            UpdateSlot(moveButtons[i], hasMove, name);
         }
+
+        Debug.Log(
+            $"Attack menu refreshed: {moves?.Count ?? 0} move slots."
+        );
     }
+
 
     private void PreviewMove(int index)
     {
@@ -206,25 +222,48 @@ public class BattleMenuUI : MonoBehaviour
 
     // ---------------- ITEMS MENU ----------------
 
+
     public void OpenItemsMenu()
     {
         ShowPanel(itemsPanel);
 
         selectedItem = -1;
-        itemDescription.text = "Select an item to inspect it.";
         useItemButton.interactable = false;
+
+        itemDescription.text = "Select an item to inspect it.";
 
         GameSession session = GameSession.Instance;
 
-        int potions = session != null ? session.potionCount : 0;
-        int superPotions =
-            session != null ? session.superPotionCount : 0;
+        int potions = session != null
+            ? session.potionCount
+            : 0;
 
-        itemLabels[0].text = $"Potion x{potions}";
-        itemLabels[1].text = $"Super Potion x{superPotions}";
+        int superPotions = session != null
+            ? session.superPotionCount
+            : 0;
 
-        itemButtons[0].interactable = potions > 0;
-        itemButtons[1].interactable = superPotions > 0;
+        // Show the actual inventory quantities.
+        if (itemButtons.Length > 0)
+        {
+            UpdateSlot(
+                itemButtons[0],
+                true,
+                $"Potion x{potions}"
+            );
+
+            itemButtons[0].interactable = potions > 0;
+        }
+
+        if (itemButtons.Length > 1)
+        {
+            UpdateSlot(
+                itemButtons[1],
+                true,
+                $"Super Potion x{superPotions}"
+            );
+
+            itemButtons[1].interactable = superPotions > 0;
+        }
     }
 
     private void PreviewItem(int index)
@@ -259,39 +298,67 @@ public class BattleMenuUI : MonoBehaviour
 
     // ---------------- TEAM MENU ----------------
 
+
     public void OpenTeamMenu()
     {
         ShowPanel(teamPanel);
 
         selectedTeamMember = -1;
+        switchButton.interactable = false;
+
         creatureDetails.text =
             "Select a creature to inspect its stats.";
-
-        switchButton.interactable = false;
 
         GameSession session = GameSession.Instance;
 
         for (int i = 0; i < teamButtons.Length; i++)
         {
-            bool valid =
+            bool hasCreature =
                 session != null &&
+                session.team != null &&
                 i < session.team.Count &&
                 session.team[i] != null &&
                 session.team[i].species != null;
 
-            teamButtons[i].gameObject.SetActive(valid);
-
-            if (!valid)
+            if (!hasCreature)
+            {
+                // Hide unused team slots completely.
+                UpdateSlot(teamButtons[i], false, "");
                 continue;
+            }
 
-            CreatureInstanceData data = session.team[i];
+            CreatureInstanceData creature = session.team[i];
 
-            bool active = i == session.activeCreatureIndex;
+            bool isActive = i == session.activeCreatureIndex;
 
-            teamLabels[i].text =
-                $"{data.species.speciesName}  Lv. {data.level}" +
-                (active ? " (Active)" : "");
+            int maxHP = CombatBalance.CalculateMaxHP(
+                creature.species.baseHealth,
+                creature.level
+            );
+
+            int currentHP = creature.currentHP;
+
+            // Read live battle HP for the active creature.
+            if (isActive &&
+                battleManager != null &&
+                battleManager.playerCreature != null)
+            {
+                currentHP = battleManager.playerCreature.currentHp;
+            }
+
+            string displayName =
+                $"{creature.species.speciesName} Lv.{creature.level}\n" +
+                $"HP: {currentHP}/{maxHP}";
+
+            if (isActive)
+                displayName += " (Active)";
+
+            UpdateSlot(teamButtons[i], true, displayName);
         }
+
+        Debug.Log(
+            $"Team menu refreshed: {session?.team?.Count ?? 0} creatures."
+        );
     }
 
     private void PreviewTeamMember(int index)
@@ -356,4 +423,28 @@ public class BattleMenuUI : MonoBehaviour
 
         battleManager.SelectSwitch(selectedTeamMember);
     }
+
+
+    private void UpdateSlot(Button button, bool visible, string label)
+    {
+        if (button == null)
+            return;
+
+        button.gameObject.SetActive(visible);
+
+        if (!visible)
+            return;
+
+        // Finds the TextMeshPro text inside the button.
+        TMP_Text buttonText =
+            button.GetComponentInChildren<TMP_Text>(true);
+
+        if (buttonText != null)
+        {
+            buttonText.text = label;
+        }
+    }
+
 }
+
+
